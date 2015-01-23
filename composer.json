@@ -1,5 +1,5 @@
 {
-    "name": "yiisoft/yii2-gii",
+    "name": "harlangray/yii2-gii-advanced",
     "description": "The Gii extension for the Yii framework",
     "keywords": ["yii2", "gii", "code generator"],
     "type": "yii2-extension",
@@ -13,8 +13,8 @@
     },
     "authors": [
         {
-            "name": "Qiang Xue",
-            "email": "qiang.xue@gmail.com"
+            "name": "Harlan Gray",
+            "email": "harlan.gray@gmail.com"
         }
     ],
     "require": {
@@ -25,7 +25,7 @@
     },
     "autoload": {
         "psr-4": {
-            "yii\\gii\\": ""
+            "harlangray\\gii\\": ""
         }
     },
     "extra": {
