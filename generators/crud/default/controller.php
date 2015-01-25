@@ -143,34 +143,40 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             ?>
             
             if ($valid) {
-                if ($flag = $model->save(false)) {
-                <?php
-                $tablePk = $generator->getPrimaryKeyOfTable();
-                foreach ($relatedDetailTables as $relatedTable){
-                    $tableName = $relatedTable['tabelName'];
-                    $fieldName = $relatedTable['relatedField'];
-                    $modGen = new yii\gii\generators\model\Generator;
-                    $relatedClassName = $modGen->generateClassName($tableName);                     
-                    $relTablePk = $generator->getPrimaryKeyOfTable($tableName);
-                ?>               
-                foreach ($<?= $tableName; ?>Mods as $<?= $tableName; ?>Mod) {
-                    $<?= $tableName; ?>Mod-><?= $fieldName; ?> = $model-><?= $tablePk; ?>;
-                    if (!($flag = $<?= $tableName; ?>Mod->save(false))) {
-                        break;
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {            
+                    if ($flag = $model->save(false)) {
+                    <?php
+                    $tablePk = $generator->getPrimaryKeyOfTable();
+                    foreach ($relatedDetailTables as $relatedTable){
+                        $tableName = $relatedTable['tabelName'];
+                        $fieldName = $relatedTable['relatedField'];
+                        $modGen = new yii\gii\generators\model\Generator;
+                        $relatedClassName = $modGen->generateClassName($tableName);                     
+                        $relTablePk = $generator->getPrimaryKeyOfTable($tableName);
+                    ?>               
+                        foreach ($<?= $tableName; ?>Mods as $<?= $tableName; ?>Mod) {
+                            $<?= $tableName; ?>Mod-><?= $fieldName; ?> = $model-><?= $tablePk; ?>;
+                            if (!($flag = $<?= $tableName; ?>Mod->save(false))) {
+                                break;
+                            }
+                        }                
+                    <?php
                     }
-                }                
-                <?php
-                }
-                ?>
-                
-                if ($flag) {
-                    return $this->redirect(['view', <?= $urlParams ?>]);
-                }                
-            }
+                    ?>
 
+                        if ($flag) {
+                            $transaction->commit();
+                            Yii::$app->session->setFlash('success', yii::t('app', 'Created <i>{attribute}</i> successfully', ['attribute' => $model-><?= $generator->getNameAttribute(); ?>]));
+                            return $this->redirect(['view', <?= $urlParams ?>]);
+                        }                
+                    }
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                }
         }
             else{
-
+                Yii::$app->session->setFlash('danger', yii::t('app', 'There are validation errors in your form. Please check your input details.'));
             }   
         }
         return $this->render('create', [
@@ -254,34 +260,41 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             ?>
             
             if ($valid) {
-                if ($flag = $model->save(false)) {
-                <?php
-                foreach ($relatedDetailTables as $relatedTable){
-                    $tableName = $relatedTable['tabelName'];
-                    $modGen = new yii\gii\generators\model\Generator;
-                    $relatedClassName = $modGen->generateClassName($tableName);                     
-                    $relTablePk = $generator->getPrimaryKeyOfTable($tableName);
-                ?>
-                if (! empty($deleted<?= $tableName; ?>IDs)) {
-                    \app\models\<?= $relatedClassName; ?>::deleteAll(['<?= $relTablePk; ?>' => $deleted<?= $tableName; ?>IDs]);
-                }                
-                foreach ($<?= $tableName; ?>Mods as $<?= $tableName; ?>Mod) {
-                    if (!($flag = $<?= $tableName; ?>Mod->save(false))) {
-                        break;
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    if ($flag = $model->save(false)) {
+                    <?php
+                    foreach ($relatedDetailTables as $relatedTable){
+                        $tableName = $relatedTable['tabelName'];
+                        $modGen = new yii\gii\generators\model\Generator;
+                        $relatedClassName = $modGen->generateClassName($tableName);                     
+                        $relTablePk = $generator->getPrimaryKeyOfTable($tableName);
+                    ?>
+                    if (! empty($deleted<?= $tableName; ?>IDs)) {
+                        \app\models\<?= $relatedClassName; ?>::deleteAll(['<?= $relTablePk; ?>' => $deleted<?= $tableName; ?>IDs]);
+                    }                
+                    foreach ($<?= $tableName; ?>Mods as $<?= $tableName; ?>Mod) {
+                        if (!($flag = $<?= $tableName; ?>Mod->save(false))) {
+                            break;
+                        }
+                    }                
+                    <?php
                     }
-                }                
-                <?php
-                }
-                ?>
-                
-                if ($flag) {
-                    return $this->redirect(['view', <?= $urlParams ?>]);
-                }                
-            }
+                    ?>
 
+                
+                    if ($flag) {
+                        $transaction->commit();
+                        Yii::$app->session->setFlash('success', yii::t('app', 'Saved <i>{attribute}</i> successfully', ['attribute' => $model-><?= $generator->getNameAttribute(); ?>]));
+                        return $this->redirect(['view', <?= $urlParams ?>]);
+                    }                
+                }
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                }
         }
             else{
-
+                Yii::$app->session->setFlash('danger', yii::t('app', 'There are validation errors in your form. Please check your input details.'));
             }   
         }
         return $this->render('update', [
