@@ -386,7 +386,7 @@ class Generator extends \yii\gii\Generator {
 
                $foreignFieldName = $this->getNameAttributeOfTable($foreignTable);
 
-               return "\$form->field(\${$tableName}Mod, \"[\$index]$attribute\", ['template' => '{input}{hint}{error}'])->dropDownList(\yii\helpers\ArrayHelper::map(app\models\\{$className}::find()->orderBy('$foreignFieldName')->asArray()->all(), '$foreignKey', '$foreignFieldName'))";
+               return "\$form->field(\${$tableName}Mod, \"[\$index]$attribute\", ['template' => '{input}{hint}{error}'])->dropDownList(\yii\helpers\ArrayHelper::map(app\models\\{$className}::find()->orderBy('$foreignFieldName')->asArray()->all(), '$foreignKey', '$foreignFieldName'), ['prompt' => 'Select...'])";
           } else {
                if (preg_match('/^(password|pass|passwd|passcode)$/i', $column->name)) {
                     $input = 'passwordInput';
@@ -444,7 +444,7 @@ class Generator extends \yii\gii\Generator {
 
                return "['type'=>Form::INPUT_DROPDOWN_LIST, "
                        . "'items' => ArrayHelper::map($className::find()->orderBy('$foreignFieldName')->asArray()->all(), '$foreignKey', '$foreignFieldName'),"
-                       . "'options'=>['placeholder'=>'$placeHolder']]";
+                       . "'options'=>['prompt' => 'Select...', 'placeholder'=>'$placeHolder']]";
           } else {
                return "['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'$placeHolder']]";
           }
