@@ -19,7 +19,7 @@ php composer.phar require --prefer-dist yiisoft/yii2-gii "*"
 or add
 
 ```
-"yiisoft/yii2-gii": "*"
+"harlangray/yii2-gii-advanced": "dev-master",
 ```
 
 to the require section of your `composer.json` file.
