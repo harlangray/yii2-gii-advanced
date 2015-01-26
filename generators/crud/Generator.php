@@ -425,12 +425,12 @@ class Generator extends \yii\gii\Generator {
                return "['type'=>Form::INPUT_WIDGET, "
                        . "'widgetClass'=>'\kartik\widgets\DatePicker',"
                        . "'hint'=>'$hint',"
-                       . "'pluginOptions'=>['autoclose'=>true]]";
+                       . "'options' => ['pluginOptions' => ['format' => 'yyyy-mm-dd', 'autoclose'=>true, 'todayHighlight' => true]]]";
           } elseif ($column->type === 'datetime') {
                return "['type'=>Form::INPUT_WIDGET, "
                        . "'widgetClass'=>'\kartik\widgets\DateTimePicker',"
                        . "'hint'=>'$hint',"
-                       . "'pluginOptions'=>['autoclose'=>true]]";
+                       . "'options' => ['pluginOptions'=>['format' => 'yyyy-mm-dd h:i', 'autoclose'=>true, 'todayHighlight' => true]]]";
           } elseif ($column->type === 'integer' && $this->getForeignKeyInfo($attribute) !== null) {
                $foreignKeyInfo = $this->getForeignKeyInfo($attribute);
                $foreignTable = $foreignKeyInfo['foreignTable'];
