@@ -87,7 +87,11 @@ foreach ($attributChunks as $attributes) {
          $generateDetails = true;
     if($generateDetails){
 ?>
-echo yii\jui\Tabs::widget([
+use kartik\tabs\TabsX;
+echo TabsX::widget([
+    'position'=>TabsX::POS_ABOVE,
+    'bordered'=>true,
+    'encodeLabels'=>false,
     'items' => [    
     <?php
 
