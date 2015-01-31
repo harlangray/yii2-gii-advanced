@@ -78,6 +78,8 @@ echo Html::a('<i class="glyphicon glyphicon-plus"></i> Add New', '#', ['class'=>
        <?= $tableName; ?>Cnt++;
            
        $('#<?= $tableName; ?>_grid').append(rowHtml);
+       attachDatePickerForMDRows();
+       attachDateTimePickerForMDRows();
     } 
     
     function remove<?= $tableName; ?>Row(id){

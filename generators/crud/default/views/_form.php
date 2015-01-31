@@ -131,6 +131,10 @@ ActiveForm::end();
 
 <script>
     function attachDatePickerForMDRows(){
-        jQuery('.detaildatepicker').parent().datepicker();
-    }    
+        jQuery('.detaildatepicker').parent().datepicker(datepicker_0bc58145);
+    } 
+    
+    function attachDateTimePickerForMDRows(){
+        jQuery('.detaildatetimepicker').parent().datetimepicker(datetimepicker_e8d09fe5)
+    }            
 </script>

@@ -348,7 +348,7 @@ class Generator extends \yii\gii\Generator {
     echo \kartik\date\DatePicker::widget([
         'model' => \${$tableName}Mod,
         'attribute' => \"[\$index]$attribute\",
-        'options' => ['placeholder' => 'Select date ...'],
+        'options' => ['placeholder' => 'Select date ...', 'class' => 'detaildatepicker'],
         'pluginOptions' => [      
             'todayHighlight' => true,
             'autoclose'=>true,
@@ -365,7 +365,7 @@ class Generator extends \yii\gii\Generator {
     echo kartik\datetime\DateTimePicker::widget([
         'model' => \${$tableName}Mod,
         'attribute' => \"[\$index]$attribute\",
-        'options' => ['placeholder' => 'Select time ...'],
+        'options' => ['placeholder' => 'Select time ...', 'class' => 'detaildatetimepicker'],
         'pluginOptions' => [      
             'todayHighlight' => true,
             'autoclose'=>true,
