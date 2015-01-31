@@ -52,7 +52,7 @@ $<?= $tableName; ?>Cnt = $index + 1;
 </table>
     <div class="detail-button-panel">
 <?= "<?php\n"; ?>
-echo Html::a('<i class="glyphicon glyphicon-plus"></i> Add New', '#', ['class'=>'btn btn-success', 'onClick' => 'add<?= $tableName; ?>Row();']) 
+echo Html::button('Add New', [ 'class' => 'btn btn-success glyphicon glyphicon-plus', 'onClick' => 'add<?= $tableName; ?>Row();' ]);
 <?= '?>'; ?>
     </div>
 </div>

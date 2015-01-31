@@ -168,7 +168,8 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                         if ($flag) {
                             $transaction->commit();
                             Yii::$app->session->setFlash('success', yii::t('app', 'Created <i>{attribute}</i> successfully', ['attribute' => $model-><?= $generator->getNameAttribute(); ?>]));
-                            return $this->redirect(['view', <?= $urlParams ?>]);
+                            //return $this->redirect(['view', <?= $urlParams ?>]);
+                            return $this->redirect(['index']);
                         }                
                     }
                 } catch (Exception $e) {
@@ -286,7 +287,8 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                     if ($flag) {
                         $transaction->commit();
                         Yii::$app->session->setFlash('success', yii::t('app', 'Saved <i>{attribute}</i> successfully', ['attribute' => $model-><?= $generator->getNameAttribute(); ?>]));
-                        return $this->redirect(['view', <?= $urlParams ?>]);
+                        //return $this->redirect(['view', <?= $urlParams ?>]);
+                        return $this->redirect(['index']);
                     }                
                 }
                 } catch (Exception $e) {
