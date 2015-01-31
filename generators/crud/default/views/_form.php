@@ -127,4 +127,10 @@ echo TabsX::widget([
 
 <?= "<?php\n";?>
 ActiveForm::end();
-<?= '?>'?>
+<?= '?>'?>   
+
+<script>
+    function attachDatePickerForMDRows(){
+        jQuery('.detaildatepicker').parent().datepicker();
+    }    
+</script>
